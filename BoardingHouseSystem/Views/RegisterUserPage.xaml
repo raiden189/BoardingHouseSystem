@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BoardingHouseSystem.Views.RegisterUserPage"
+             xmlns:local="clr-namespace:BoardingHouseSystem.Services"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <local:LoginConverter x:Key="loginConverter" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout BackgroundColor="#1e7898" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                        <Image VerticalOptions="Center" Source="{local:ImageResource Source=BoardingHouseSystem.Resources.Images.register.png}" WidthRequest="64" />
+                    </ContentView>
+                    <Label Text="Account Registration" FontSize="25" VerticalOptions="Center" />
+                </StackLayout>
+            </StackLayout>
+            <ScrollView Grid.Row="1">
+                <StackLayout Margin="20, 50, 20, 0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                    </Grid>
+                    <Entry Placeholder="User Name" x:Name="UserName"/>
+                    <Entry Placeholder="Password" x:Name="Password" IsPassword="True"/>
+                    <Entry Placeholder="Confirm Password" x:Name="ConPassword" IsPassword="True">
+                        <Entry.Behaviors>
+                            <local:ConfirmPasswordBehavior CompareToEntry="{Binding Source={x:Reference Password}}"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Grid Margin="0, 50, 0, 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" VerticalOptions="Center" Text="Save" Command="{Binding SaveCommand}">
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource loginConverter}">
+                                    <MultiBinding.Bindings>
+                                        <Binding Path="Text" Source="{Reference UserName}"/>
+                                        <Binding Path="Text" Source="{Reference ConPassword}"/>
+                                    </MultiBinding.Bindings>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Grid.Column="1" VerticalOptions="Center" BackgroundColor="#FD595B" Text="Back" Command="{Binding BackCommand}"/>
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

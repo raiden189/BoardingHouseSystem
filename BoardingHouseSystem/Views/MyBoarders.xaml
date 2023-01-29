@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BoardingHouseSystem.Views.MyBoarders"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:fontIcon="clr-namespace:BoardingHouseSystem.Resources.AppFonts"
+             xmlns:controls="clr-namespace:BoardingHouseSystem.Controls"
+             Shell.NavBarIsVisible="True">
+    <ContentPage.Content>
+        <StackLayout BackgroundColor="White">
+            <StackLayout Padding="0, 10, 40, 0" Orientation="Horizontal">
+                <SearchBar x:Name="srcBar" Placeholder="Search boarding house" HorizontalOptions="Start">
+                    <SearchBar.Behaviors>
+                        <xct:EventToCommandBehavior EventName="TextChanged" Command="{Binding SelectedChange}" CommandParameter="{Binding Text, Source={x:Reference srcBar}}" />
+                    </SearchBar.Behaviors>
+                </SearchBar>
+                <StackLayout HorizontalOptions="End">
+                    <Frame CornerRadius="20" WidthRequest="20" BackgroundColor="#167ccb">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding ViewProfile}"/>
+                        </Frame.GestureRecognizers>
+                        <StackLayout>
+                            <Image>
+                                <Image.Source>
+                                    <FontImageSource Color="White" FontFamily="Icons" Glyph="{x:Static fontIcon:FontIcons.AccountCircle}"/>
+                                </Image.Source>
+                            </Image>
+                        </StackLayout>
+                    </Frame>
+                </StackLayout>
+            </StackLayout>
+            <ListView x:Name="lstView" ItemsSource="{Binding Boarders}" SeparatorVisibility="Default" HasUnevenRows="True">
+                <ListView.Header>
+                    <StackLayout Margin="10, 0, 0, 0" Orientation="Horizontal">
+                        <Label Text="Filter By: "
+                               FontSize="20"
+                               TextColor="Olive" VerticalTextAlignment="Center" />
+                        <Picker x:Name="PriceType" Title="Price" WidthRequest="80">
+                            <Picker.Items>
+                                <x:String>Lowest</x:String>
+                                <x:String>Highest</x:String>
+                            </Picker.Items>
+                        </Picker>
+                        <Picker x:Name="DistanceType" Title="Distance" WidthRequest="100">
+                            <Picker.Items>
+                                <x:String>Near</x:String>
+                                <x:String>Medium</x:String>
+                                <x:String>Far</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </StackLayout>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal" Padding="0, 10, 10, 10" BackgroundColor="White">
+                                <Rectangle x:Name="sideColor" WidthRequest="10" BackgroundColor="{Binding ColorDesign}"/>
+                                <Image Source="{Binding Photo}" HeightRequest="100" WidthRequest="100" Aspect="AspectFill"/>
+                                <StackLayout HorizontalOptions="Start">
+                                    <Label HorizontalOptions="Fill" Grid.Column="1" FontAttributes="Bold">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="{Binding FirstName}"
+                                                      TextColor="Green">
+                                                </Span>
+                                                <Span Text=" "
+                                                      TextColor="Green">
+                                                </Span>
+                                                <Span Text="{Binding MiddleName}"
+                                                      TextColor="Green">
+                                                </Span>
+                                                <Span Text=" "
+                                                      TextColor="Green">
+                                                </Span>
+                                                <Span Text="{Binding LastName}"
+                                                      TextColor="Green">
+                                                </Span>
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label HorizontalOptions="Fill" Grid.Column="1" Text="{Binding Address}" TextColor="Black"/>
+                                    <Label HorizontalOptions="Fill" Grid.Column="1" Text="{Binding ContactNum}" TextColor="Black"/>
+                                </StackLayout>
+                                <StackLayout VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                                    <Button Grid.Column="0" BackgroundColor="#167ccb" TextColor="White" HeightRequest="40" WidthRequest="90" VerticalOptions="Center" Text="View" Command="{Binding Path=BindingContext.ViewProfile, Source={x:Reference lstView}}" CommandParameter="{Binding .}"/>
+                                    <Button Grid.Column="0" BackgroundColor="#c05959" TextColor="White" IsEnabled="False" HeightRequest="40" WidthRequest="90" VerticalOptions="Center" Text="Remove" Command="{Binding Path=BindingContext.RemoveCommand, Source={x:Reference lstView}}" CommandParameter="{Binding .}"/>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,151 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BoardingHouseSystem.Views.StudentProfilePage"
+             xmlns:local="clr-namespace:BoardingHouseSystem.Services"
+             xmlns:fontIcon="clr-namespace:BoardingHouseSystem.Resources.AppFonts"
+             xmlns:controls="clr-namespace:BoardingHouseSystem.Controls"
+             Shell.NavBarIsVisible="True">
+    <ContentPage.Resources>
+        <local:ImageSourceConverter x:Key="ImageConverter" />
+    </ContentPage.Resources>
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}" IconOverride="{local:ImageResource Source=BoardingHouseSystem.Resources.Images.back.png}"/>
+    </Shell.BackButtonBehavior>
+    <ContentPage.Content>
+        <Frame CornerRadius="20" Margin="20" Padding="0">
+            <StackLayout>
+                <Frame CornerRadius="12"
+                       HeightRequest="200">
+                    <Frame.Background>
+                        <LinearGradientBrush EndPoint="1, 1">
+                            <GradientStop Color="LightBlue"
+                                          Offset="0.1"/>
+                            <GradientStop Color="#0041ff"
+                                          Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Frame.Background>
+                    <StackLayout>
+                        <Image HorizontalOptions="End" HeightRequest="20" WidthRequest="20">
+                            <Image.Source>
+                                <FontImageSource Color="White" FontFamily="Icons" Glyph="{x:Static fontIcon:FontIcons.Logout}"/>
+                            </Image.Source>
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding LogoutCommand}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                        <Label HorizontalOptions="Center" Margin="10" Text="Profile" FontAttributes="Bold" TextColor="White"/>
+                        <Frame CornerRadius="50" 
+                           HeightRequest="90" 
+                           WidthRequest="90" 
+                           Padding="0" Margin="0" 
+                           VerticalOptions="Center" 
+                           HorizontalOptions="Center"
+                           IsClippedToBounds="True">
+                            <Image>
+                                <Image.Source>
+                                    <UriImageSource Uri="{Binding Account.Photo}"/>
+                                </Image.Source>
+                            </Image>
+                        </Frame>
+                        <Label HorizontalOptions="Center" Margin="10" Text="{Binding AccountFullName}" FontAttributes="Bold" TextColor="White"/>
+                    </StackLayout>
+                </Frame>
+                <!-- Contact Information Details -->
+                <StackLayout Orientation="Horizontal" Padding="20">
+                    <StackLayout HorizontalOptions="Start">
+                        <Image HeightRequest="20" WidthRequest="20">
+                            <Image.Source>
+                                <FontImageSource Color="Gray" FontFamily="Icons" Glyph="{x:Static fontIcon:FontIcons.AccountBadge}"/>
+                            </Image.Source>
+                        </Image>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="End" VerticalOptions="Center">
+                        <Label Text="Type"/>
+                        <Label Text="{Binding AccountType}"/>
+                    </StackLayout>
+                </StackLayout>
+                <Rectangle WidthRequest="200" BackgroundColor="#D0D0D0"/>
+                <StackLayout Orientation="Horizontal" Padding="20">
+                    <StackLayout HorizontalOptions="Start">
+                        <Image HeightRequest="20" WidthRequest="20">
+                            <Image.Source>
+                                <FontImageSource Color="Gray" FontFamily="Icons" Glyph="{x:Static fontIcon:FontIcons.Cellphone}"/>
+                            </Image.Source>
+                        </Image>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="End" VerticalOptions="Center">
+                        <Label Text="Mobile"/>
+                        <Label Text="{Binding Account.ContactNum}"/>
+                    </StackLayout>
+                </StackLayout>
+                <Rectangle WidthRequest="200" BackgroundColor="#D0D0D0"/>
+                <StackLayout Orientation="Horizontal" Padding="20">
+                    <StackLayout HorizontalOptions="Start">
+                        <Image HeightRequest="20" WidthRequest="20">
+                            <Image.Source>
+                                <FontImageSource Color="Gray" FontFamily="Icons" Glyph="{x:Static fontIcon:FontIcons.MapMarkerOutline}"/>
+                            </Image.Source>
+                        </Image>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="End" VerticalOptions="Center">
+                        <Label Text="Address"/>
+                        <Label Text="{Binding Account.Address}"/>
+                    </StackLayout>
+                </StackLayout>
+                <Rectangle WidthRequest="200" BackgroundColor="#D0D0D0"/>
+                <StackLayout Orientation="Horizontal" Padding="20">
+                    <StackLayout HorizontalOptions="Start">
+                        <Image HeightRequest="20" WidthRequest="20">
+                            <Image.Source>
+                                <FontImageSource Color="Gray" FontFamily="Icons" Glyph="{x:Static fontIcon:FontIcons.Facebook}"/>
+                            </Image.Source>
+                        </Image>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="End" VerticalOptions="Center">
+                        <Label Text="Facebook"/>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="{Binding Account.FbAccount}"
+                                  TextColor="Blue"
+                                  TextDecorations="Underline">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer/>
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+                </StackLayout>
+                <Rectangle WidthRequest="200" BackgroundColor="#D0D0D0"/>
+                <StackLayout Orientation="Horizontal" Padding="20, 10 ,0 ,0">
+                    <StackLayout HorizontalOptions="Start">
+                        <Image HeightRequest="20" WidthRequest="20">
+                            <Image.Source>
+                                <FontImageSource Color="Gray" FontFamily="Icons" Glyph="{x:Static fontIcon:FontIcons.ApplicationArrayOutline}"/>
+                            </Image.Source>
+                        </Image>
+                    </StackLayout>
+                    <StackLayout HorizontalOptions="End" VerticalOptions="Center">
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="My Boarding House"
+                                  TextColor="Blue"
+                                  TextDecorations="Underline">
+                                        <Span.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding ViewBoardingHouse}"/>
+                                        </Span.GestureRecognizers>
+                                    </Span>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+                </StackLayout>
+                <!-- //////////////////////// -->
+            </StackLayout>
+        </Frame>
+    </ContentPage.Content>
+</ContentPage>

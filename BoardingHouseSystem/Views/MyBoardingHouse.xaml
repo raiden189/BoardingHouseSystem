@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BoardingHouseSystem.Views.MyBoardingHouse"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:local="clr-namespace:BoardingHouseSystem.Services"
+             Shell.NavBarIsVisible="False">
+    <ContentPage.Resources>
+        <local:BoardinHouseConverter x:Key="boardingConverter" />
+        <Style x:Key="ErrorEntry" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red"/>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout BackgroundColor="#1e7898" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <ContentView Padding="0,20,0,40" VerticalOptions="FillAndExpand">
+                        <Image VerticalOptions="Center" Source="{local:ImageResource Source=BoardingHouseSystem.Resources.Images.register.png}" WidthRequest="64" />
+                    </ContentView>
+                    <Label Text="Boarding House Registration" FontSize="20" VerticalOptions="Center" />
+                </StackLayout>
+            </StackLayout>
+            <ScrollView Grid.Row="1">
+                <StackLayout Margin="20, 10, 20, 0">
+                    <Entry Placeholder="Boarding House Name" x:Name="Name"/>
+                    <Entry Placeholder="Contact Person" x:Name="ContactPerson"/>
+                    <Entry Placeholder="Contact Number" Keyboard="Numeric" x:Name="ContactNumber">
+                        <Entry.Behaviors>
+                            <xct:MaskedBehavior Mask="XXXXXXXXXXX"/>
+                            <xct:NumericValidationBehavior InvalidStyle="{StaticResource ErrorEntry}"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Label Text="Note: Copy/paste correct address from the map." TextColor="DarkOrange"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="270"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Entry Grid.Column="0" Placeholder="Address" x:Name="Address"/>
+                        <Button Grid.Column="1" VerticalOptions="Center" BackgroundColor="Green" Text="Map" Command="{Binding LoadMapCommand}"/>
+                    </Grid>
+                    <Label Text="Optional" TextColor="DarkOrange"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="270"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Entry Grid.Column="0" Keyboard="Numeric" MaxLength="5" Placeholder="Monthly Payment" x:Name="Monthly"/>
+                        <Label Grid.Column="1" FontSize="30" Text="PHP" TextColor="Gray"/>
+                    </Grid>
+                    <Entry Placeholder="Capacity" x:Name="Capacity" Keyboard="Numeric" MaxLength="3"/>
+                    <Editor Placeholder="Details" x:Name="Details" AutoSize="TextChanges" MaxLength="180"/>
+                    <Button Grid.Column="0" VerticalOptions="Center" Text="Pick Images" Command="{Binding FilePickerCommand}" BackgroundColor="Gray"/>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="300"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <ListView x:Name="lstView" Grid.Row="0" ItemsSource="{Binding Images}" SeparatorVisibility="Default" HasUnevenRows="True">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <StackLayout Orientation="Horizontal" Padding="0, 10, 10, 10" BackgroundColor="White">
+                                            <Rectangle x:Name="sideColor" WidthRequest="10" BackgroundColor="{Binding ColorDesign}"/>
+                                            <Image Source="{Binding Path}" HeightRequest="100" WidthRequest="100" Aspect="AspectFill"/>
+                                            <StackLayout VerticalOptions="Center" HorizontalOptions="EndAndExpand">
+                                                <Button Grid.Column="0" Command="{Binding Path=BindingContext.DeleteImageCommand, Source={x:Reference lstView}}" CommandParameter="{Binding .}" BackgroundColor="Maroon" TextColor="White" HeightRequest="90" WidthRequest="90" VerticalOptions="Center" Text="Remove"/>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </Grid>
+                    <Grid Margin="0, 0, 0, 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" VerticalOptions="Center" Text="Save" Command="{Binding SubmitCommand}">
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource boardingConverter}">
+                                    <MultiBinding.Bindings>
+                                        <Binding Path="Text" Source="{Reference Name}"/>
+                                        <Binding Path="Text" Source="{Reference ContactPerson}"/>
+                                        <Binding Path="Text" Source="{Reference ContactNumber}"/>
+                                        <Binding Path="Text" Source="{Reference Address}"/>
+                                        <Binding Path="Text" Source="{Reference Monthly}"/>
+                                        <Binding Path="Text" Source="{Reference Capacity}"/>
+                                        <Binding Path="Text" Source="{Reference Details}"/>
+                                    </MultiBinding.Bindings>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Grid.Column="1" VerticalOptions="Center" BackgroundColor="#FD595B" Text="Cancel" Command="{Binding CancelCommand}"/>
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

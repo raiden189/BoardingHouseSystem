@@ -1,0 +1,98 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <UserSecretsId>c50edb1f-f3ec-469f-aff8-e5d01e84659b</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\AppFonts\material_icons.ttf" />
+    <None Remove="Resources\Images\back-btn.png" />
+    <None Remove="Resources\Images\back.png" />
+    <None Remove="Resources\Images\b_house.png" />
+    <None Remove="Resources\Images\delete-black.png" />
+    <None Remove="Resources\Images\delete-red.png" />
+    <None Remove="Resources\Images\edit.png" />
+    <None Remove="Resources\Images\house.png" />
+    <None Remove="Resources\Images\nophoto.png" />
+    <None Remove="Resources\Images\plus.png" />
+    <None Remove="Resources\Images\register.png" />
+    <None Remove="Resources\Images\reserve.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\AppFonts\material_icons.ttf" />
+    <EmbeddedResource Include="Resources\Images\back-btn.png" />
+    <EmbeddedResource Include="Resources\Images\back.png" />
+    <EmbeddedResource Include="Resources\Images\b_house.png" />
+    <EmbeddedResource Include="Resources\Images\delete-black.png" />
+    <EmbeddedResource Include="Resources\Images\delete-red.png" />
+    <EmbeddedResource Include="Resources\Images\edit.png" />
+    <EmbeddedResource Include="Resources\Images\house.png" />
+    <EmbeddedResource Include="Resources\Images\nophoto.png" />
+    <EmbeddedResource Include="Resources\Images\plus.png" />
+    <EmbeddedResource Include="Resources\Images\register.png" />
+    <EmbeddedResource Include="Resources\Images\reserve.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Com.Airbnb.Xamarin.Forms.Lottie" Version="4.1.0" />
+    <PackageReference Include="FirebaseStorage.net" Version="1.0.3" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
+    <PackageReference Include="System.Text.Json" Version="7.0.1" />
+    <PackageReference Include="Xam.Plugin.Media" Version="5.0.1" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.5" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2545" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.4" />  
+    <PackageReference Include="Xamarin.Forms.GoogleMaps.v2" Version="3.4.5" />  
+    <PackageReference Include="Xamarin.Forms.Maps" Version="5.0.0.2545" />  
+    <PackageReference Include="Xamarin.MediaGallery" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\ReferenceAssemblies\Microsoft\Framework\MonoAndroid\v12.0\Mono.Android.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\RegisterPage.xaml.cs">
+      <DependentUpon>RegisterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\StudentBoardingView.xaml.cs">
+      <DependentUpon>StudentBoardingView.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\MyBoarders.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\MyBoardingHouse.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\OwnerPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\OwnerRegistrationPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\RegisterPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\RegisterUserPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\StudentBoardingView.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\StudentProfilePage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\UserPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BoardingHouseSystem.Views.StudentBoardingView"
+             xmlns:local="clr-namespace:BoardingHouseSystem.Services"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:fontIcon="clr-namespace:BoardingHouseSystem.Resources.AppFonts">
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}" 
+                            IconOverride="{local:ImageResource Source=BoardingHouseSystem.Resources.Images.back.png}"/>
+    </Shell.BackButtonBehavior>
+    <ContentPage.Resources>
+        <local:ImageSourceConverter x:Key="ImageConverter" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout BackgroundColor="#167ccb" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Start" VerticalOptions="Center">
+                    <ContentView Padding="0,10,0,10" VerticalOptions="FillAndExpand">
+                        <Image VerticalOptions="Center" Source="{local:ImageResource Source=BoardingHouseSystem.Resources.Images.house.png}"  WidthRequest="64" />
+                    </ContentView>
+                    <Label Text="{Binding Boarding.Name}" FontSize="20" TextColor="White" VerticalOptions="Center" />
+                </StackLayout>
+            </StackLayout>
+            <StackLayout Grid.Row="1">
+                <CarouselView Grid.Row="0" ItemsSource="{Binding ImgPaths}" IsScrollAnimated="True" IndicatorView="indicatorView" HeightRequest="300">
+                    <CarouselView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <Frame Margin="5"
+                                               Padding="5"
+                                               HasShadow="True">
+                                    <Image Aspect="AspectFill">
+                                        <Image.Source>
+                                            <UriImageSource CachingEnabled="False" Uri="{Binding Path}"/>
+                                        </Image.Source>
+                                    </Image>
+                                </Frame>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+                <IndicatorView x:Name="indicatorView"
+                   IndicatorColor="LightGray"
+                   SelectedIndicatorColor="DarkGray"
+                   HorizontalOptions="Center" />
+                <StackLayout Grid.Row="1" Margin="10, 0, 10, 0">
+                    <StackLayout>
+                        <Frame BorderColor="AntiqueWhite" Margin="10, 20, 10, 0" Padding="7" HeightRequest="300" BackgroundColor="#F1EBEB">
+                            <StackLayout>
+                                <Label Margin="0, 10, 0, 5">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Name : "/>
+                                            <Span Text="{Binding Boarding.Name}"
+                                                              TextColor="#167ccb"
+                                                              FontAttributes="Bold">
+                                            </Span>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Margin="0, 0, 0, 5">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Address : "/>
+                                            <Span Text="{Binding Boarding.Address}"
+                                                              TextColor="#167ccb"
+                                                              FontAttributes="Bold">
+                                            </Span>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Margin="0, 0, 0, 5">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Monthly Payment : "/>
+                                            <Span Text="{Binding Boarding.MonthlyPayment}"
+                                                              TextColor="Green"
+                                                              FontAttributes="Bold">
+                                            </Span>
+                                            <Span Text=" Php" TextColor="Green"/>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Margin="0, 0, 0, 5">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Contact Person : "/>
+                                            <Span Text="{Binding Boarding.ContactPerson}"
+                                                              TextColor="#167ccb"
+                                                              FontAttributes="Bold">
+                                            </Span>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Margin="0, 0, 0, 5">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Contact Number : "/>
+                                            <Span Text="{Binding Boarding.ContactNumber}"
+                                                              TextColor="#167ccb"
+                                                              FontAttributes="Bold">
+                                            </Span>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Margin="0, 0, 0, 0">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Details : "/>
+                                            <Span Text="{Binding Boarding.Details}"
+                                                              TextColor="#167ccb"
+                                                              FontAttributes="Bold">
+                                            </Span>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Button VerticalOptions="Center" BackgroundColor="Green" Text="Book" IsEnabled="{Binding isBookedAlready}" Command="{Binding SaveCommand}"/>
+                                <Label Margin="0, 0, 0, 20">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Booking status : "/>
+                                            <Span Text="{Binding BookStatus}"
+                                                              TextColor="DarkOrange"
+                                                              FontAttributes="Bold">
+                                            </Span>
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </StackLayout>
+                        </Frame>
+                    </StackLayout>
+                    <StackLayout VerticalOptions="End">
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Capacity : "/>
+                                    <Span Text="{Binding Boarders}"/>
+                                    <Span Text="/"/>
+                                    <Span Text="{Binding Boarding.Capacity}"
+                                                          TextColor="DarkOrange"
+                                                          FontAttributes="Bold">
+                                    </Span>
+                                    <Span Text=" persons"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span Text="Total Reservations: "/>
+                                    <Span Text="{Binding Reservations}"
+                                                          TextColor="DarkOrange"
+                                                          FontAttributes="Bold">
+                                    </Span>
+                                    <Span Text=" persons"/>
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

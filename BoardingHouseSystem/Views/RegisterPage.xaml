@@ -1,0 +1,99 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BoardingHouseSystem.Views.RegisterPage"
+             xmlns:xct="http://xamarin.com/schemas/2020/toolkit"
+             xmlns:local="clr-namespace:BoardingHouseSystem.Services"
+             >
+    <ContentPage.Resources>
+        <local:AccountConverter x:Key="accountConverter" />
+        <Style x:Key="ErrorEntry" TargetType="Entry">
+            <Setter Property="TextColor" Value="Red"/>
+        </Style>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackLayout BackgroundColor="#1e7898" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+                    <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+                        <Image VerticalOptions="Center" Source="{local:ImageResource Source=BoardingHouseSystem.Resources.Images.register.png}" WidthRequest="64" />
+                    </ContentView>
+                    <Label Text="Account Registration" FontSize="25" VerticalOptions="Center" />
+                </StackLayout>
+            </StackLayout>
+            <ScrollView Grid.Row="1">
+                <StackLayout Margin="20, 50, 20, 0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                    </Grid>
+                    <Picker x:Name="RegType" Title="Register As">
+                        <Picker.Items>
+                            <x:String>Student</x:String>
+                            <x:String>Owner</x:String>
+                        </Picker.Items>
+                    </Picker>
+                    <Entry Text="" Placeholder="First Name" x:Name="FirstName"/>
+                    <Entry Text="" Placeholder="Middle Name" x:Name="MiddleName"/>
+                    <Entry Text="" Placeholder="Last Name" x:Name="LastName"/>
+                    <Entry Text="" Placeholder="Address" x:Name="Address"/>
+                    <Entry Text="" Placeholder="Contact Number" x:Name="ContactNum">
+                        <Entry.Behaviors>
+                            <xct:MaskedBehavior Mask="XXXXXXXXXXX"/>
+                            <xct:NumericValidationBehavior InvalidStyle="{StaticResource ErrorEntry}"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                    <Entry Text="" Placeholder="Facebook Account Link" x:Name="FbAccount">
+                        <Entry.Behaviors>
+                            <xct:UriValidationBehavior InvalidStyle="{StaticResource ErrorEntry}"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                        <Frame BorderColor="SkyBlue">
+                        <Image x:Name="Photo" WidthRequest="200" Source="{Binding PhotoSource}" HeightRequest="200"/>
+                    </Frame>
+                    <Grid Margin="0, 10, 0, 20">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" VerticalOptions="Center" Text="Take a photo" Command="{Binding TakePicCommand}" BackgroundColor="Gray"/>
+                        <Button Grid.Column="1" VerticalOptions="Center" Text="Select a photo" Command="{Binding SelectPicCommand}" BackgroundColor="Gray"/>
+                    </Grid>
+                    <Grid Margin="0, 0, 0, 0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions> 
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" VerticalOptions="Center" Text="Continue" Command="{Binding ContinueCommand}">
+                            <Button.CommandParameter>
+                                <MultiBinding Converter="{StaticResource accountConverter}">
+                                    <MultiBinding.Bindings>
+                                        <Binding Path="SelectedItem" Source="{Reference RegType}"/>
+                                        <Binding Path="Text" Source="{Reference FirstName}"/>
+                                        <Binding Path="Text" Source="{Reference MiddleName}"/>
+                                        <Binding Path="Text" Source="{Reference LastName}"/>
+                                        <Binding Path="Text" Source="{Reference ContactNum}"/>
+                                        <Binding Path="Text" Source="{Reference Address}"/>
+                                        <Binding Path="Text" Source="{Reference FbAccount}"/>
+                                    </MultiBinding.Bindings>
+                                </MultiBinding>
+                            </Button.CommandParameter>
+                        </Button>
+                        <Button Grid.Column="1" VerticalOptions="Center" BackgroundColor="#FD595B" Text="Cancel" Command="{Binding CancelCommand}"/>
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
